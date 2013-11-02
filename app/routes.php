@@ -11,27 +11,58 @@
 |
 */
 
-Route::group(array('domain' => 'api.local.v2up.me'), function()
+$env = 'testing';
+
+switch ($env) {
+    case 'product':
+        $host = '';
+        break;
+    case 'testing':
+        $host = 'dev.';
+        break;
+    case 'development':
+        $host = 'local.';
+        break;
+    default:
+        $host = '';
+}
+
+
+Route::group(array('domain' => 'api.' . $host .'v2up.me'), function()
 {
 
-    Route::get('user', function()
+    Route::get('/', function()
     {
-        return 'api local user';
+        return Response::json(array('c' => 200, 'm' => 'ok'));
+    });
+
+    Route::post('position/search/', function()
+    {
+        $keyword = Input::get('keyword', '');
+        $result = [];
+        $result[] = ['name' => $keyword . '工程师', 'desc' => $keyword . '工程师'];
+        $result[] = ['name' => $keyword . '设计师', 'desc' => $keyword . '设计师'];
+        $result[] = ['name' => $keyword . '设计工程师', 'desc' => $keyword . '设计工程师'];
+        $result[] = ['name' => $keyword . '工程设计工程师', 'desc' => $keyword . '工程设计工程师'];
+        $result[] = ['name' => $keyword . '设计工程设计工程师', 'desc' => $keyword . '设计工程设计工程师'];
+        $result[] = ['name' => $keyword . '工程设计工程设计工程师', 'desc' => $keyword . '工程设计工程设计工程师'];
+        $result[] = ['name' => $keyword . '设计工程设计工程设计工程师', 'desc' => $keyword . '设计工程设计工程设计工程师'];
+        $result[] = ['name' => $keyword . '工程设计工程设计工程设计工程师', 'desc' => $keyword . '工程设计工程设计工程设计工程师'];
+        $result[] = ['name' => $keyword . '设计工程设计工程设计工程设计工程师', 'desc' => $keyword . '设计工程设计工程设计工程设计工程师'];
+        $result[] = ['name' => $keyword . '工程设计工程设计工程设计工程设计工程师', 'desc' => $keyword . '工程设计工程设计工程设计工程设计工程师'];
+        $result[] = ['name' => $keyword . '设计工程设计工程设计工程设计工程设计工程师', 'desc' => $keyword . '设计工程设计工程设计工程设计工程设计工程师'];
+        $result[] = ['name' => $keyword . '工程设计工程设计工程设计工程设计工程设计工程师', 'desc' => $keyword . '工程设计工程设计工程设计工程设计工程设计工程师'];
+        $result[] = ['name' => $keyword . '设计工程设计工程设计工程设计工程设计工程设计工程师', 'desc' => $keyword . '设计工程设计工程设计工程设计工程设计工程设计工程师'];
+        $result[] = ['name' => $keyword . '工程设计工程设计工程设计工程设计工程设计工程设计工程师', 'desc' => $keyword . '工程设计工程设计工程设计工程设计工程设计工程设计工程师'];
+        $result[] = ['name' => $keyword . '设计工程设计工程设计工程设计工程设计工程设计工程设计工程师', 'desc' => $keyword . '设计工程设计工程设计工程设计工程设计工程设计工程设计工程师'];
+        $result[] = ['name' => $keyword . '工程设计工程设计工程设计工程设计工程设计工程设计工程设计工程师', 'desc' => $keyword . '工程设计工程设计工程设计工程设计工程设计工程设计工程设计工程师'];
+
+        return Response::json(array('c' => 200, 'm' => 'ok', 'd' => $result));
     });
 
 });
 
-Route::group(array('domain' => 'api.dev.v2up.me'), function()
-{
-
-    Route::get('user', function()
-    {
-        return 'api dev user';
-    });
-
-});
-
-Route::group(array('domain' => 'local.v2up.me'), function()
+Route::group(array('domain' => $host . 'v2up.me'), function()
 {
 
     Route::get('/', function()
@@ -42,21 +73,6 @@ Route::group(array('domain' => 'local.v2up.me'), function()
     Route::get('user', function()
     {
         return  'local user';
-    });
-
-});
-
-Route::group(array('domain' => 'dev.v2up.me'), function()
-{
-
-    Route::get('/', function()
-    {
-        return View::make('hello');
-    });
-
-    Route::get('user', function()
-    {
-        return  'dev user';
     });
 
 });
