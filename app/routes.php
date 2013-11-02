@@ -11,7 +11,7 @@
 |
 */
 
-$env = 'development';
+$env = 'testing';
 
 switch ($env) {
     case 'product':
