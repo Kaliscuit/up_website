@@ -11,7 +11,52 @@
 |
 */
 
-Route::get('/', function()
+Route::group(array('domain' => 'api.local.v2up.me'), function()
 {
-	return View::make('hello');
+
+    Route::get('user', function()
+    {
+        return 'api local user';
+    });
+
+});
+
+Route::group(array('domain' => 'api.dev.v2up.me'), function()
+{
+
+    Route::get('user', function()
+    {
+        return 'api dev user';
+    });
+
+});
+
+Route::group(array('domain' => 'local.v2up.me'), function()
+{
+
+    Route::get('/', function()
+    {
+        return View::make('hello');
+    });
+
+    Route::get('user', function()
+    {
+        return  'local user';
+    });
+
+});
+
+Route::group(array('domain' => 'dev.v2up.me'), function()
+{
+
+    Route::get('/', function()
+    {
+        return View::make('hello');
+    });
+
+    Route::get('user', function()
+    {
+        return  'dev user';
+    });
+
 });
