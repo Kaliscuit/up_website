@@ -31,12 +31,12 @@ switch ($env) {
 Route::group(array('domain' => 'api.' . $host .'v2up.me'), function()
 {
 
-    Route::get('/', function()
+    Route::any('/', function()
     {
         return Response::json(array('c' => 200, 'm' => 'ok'));
     });
 
-    Route::post('position/search/', function()
+    Route::post('position/search', function()
     {
         $keyword = Input::get('keyword', '');
         $result = [];
