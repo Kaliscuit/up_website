@@ -36,24 +36,7 @@ Route::group(array('domain' => 'api.' . $host .'v2up.me'), function()
         return Response::json(array('c' => 200, 'm' => 'ok'));
     });
 
-    Route::post('position/suggest', function()
-    {
-        $keyword = Input::get('keyword', '');
-        $result = [];
-        $result[] = ['name' => $keyword . '工程师', 'desc' => $keyword . '工程师'];
-        $result[] = ['name' => $keyword . '设计师', 'desc' => $keyword . '设计师'];
-        $result[] = ['name' => $keyword . '设计工程师', 'desc' => $keyword . '设计工程师'];
-        $result[] = ['name' => $keyword . '工程设计工程师', 'desc' => $keyword . '工程设计工程师'];
-        $result[] = ['name' => $keyword . '设计工程设计工程师', 'desc' => $keyword . '设计工程设计工程师'];
-        $result[] = ['name' => $keyword . '工程设计工程设计工程师', 'desc' => $keyword . '工程设计工程设计工程师'];
-        $result[] = ['name' => $keyword . '设计工程设计工程设计工程师', 'desc' => $keyword . '设计工程设计工程设计工程师'];
-        $result[] = ['name' => $keyword . '工程设计工程设计工程设计工程师', 'desc' => $keyword . '工程设计工程设计工程设计工程师'];
-        $result[] = ['name' => $keyword . '设计工程设计工程设计工程设计工程师', 'desc' => $keyword . '设计工程设计工程设计工程设计工程师'];
-        $result[] = ['name' => $keyword . '工程设计工程设计工程设计工程设计工程师', 'desc' => $keyword . '工程设计工程设计工程设计工程设计工程师'];
-
-
-        return Response::json(array('c' => 200, 'm' => 'ok', 'd' => array('count' => 10, 'positions' => $result)));
-    });
+    Route::any('position/suggest', 'PositionController@suggestPosition');
 
 });
 
