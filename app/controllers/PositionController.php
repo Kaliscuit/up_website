@@ -1,5 +1,5 @@
 <?php
-require '../../vendor/xunsearch/lib/XS.php';
+require '/srv/v2up.me/www/vendor/xunsearch/lib/XS.php';
 
 class PositionController extends BaseController {
 
