@@ -17,8 +17,7 @@ class PositionController extends BaseController {
         $xs         = new XS('zhaopin');
         $search     = $xs->search;
         $search->setLimit(5);
-        $search->search('position:' . $keyword);
-        $result = $search->getExpandedQuery($keyword);
+        $result = $search->search('position:' . $keyword);
 
         return Response::json(array('c' => 200, 'm' => 'ok', 'd' => array('count' => count($result), 'result' => $result)));
     }
