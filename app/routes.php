@@ -38,6 +38,7 @@ Route::group(array('domain' => 'api.' . $host .'v2up.me'), function()
 
     Route::any('position/suggest', 'PositionController@suggestPosition');
     Route::any('position/search', 'PositionController@searchPosition');
+    Route::any('user/check', 'UserController@checkEmail');
 
 });
 
