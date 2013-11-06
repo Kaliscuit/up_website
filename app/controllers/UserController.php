@@ -6,7 +6,7 @@ class UserController extends BaseController {
         $email    = Input::get('email', '');
         $validator = Validator::make(
             array('email' => $email),
-            array('name' => 'email')
+            array('email' => 'email')
         );
         if ($validator->passes()) {
             $user = User::where('email', '=', $email)->count();
