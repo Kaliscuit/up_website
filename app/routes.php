@@ -55,4 +55,10 @@ Route::group(array('domain' => $host . 'v2up.me'), function()
         return  'local user';
     });
 
+    Route::get('github', function()
+    {
+        $client = new Github\Client();
+        $client->authenticate('a4269e446086e3571436', 'b1f69b87ec27c1a3810a2ede96b7c27a8716e182', Github\Client::AUTH_URL_CLIENT_ID);
+    });
+
 });
