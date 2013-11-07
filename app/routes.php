@@ -16,17 +16,17 @@ $env = 'dev';
 switch ($env) {
     case 'product':
         $host = '';
-        $GLOBALS['github_clint_id'] = 'a4269e446086e3571436';
-        $GLOBALS['github_clint_secret'] = 'b1f69b87ec27c1a3810a2ede96b7c27a8716e182';
+        $GLOBALS['github_client_id'] = 'a4269e446086e3571436';
+        $GLOBALS['github_client_secret'] = 'b1f69b87ec27c1a3810a2ede96b7c27a8716e182';
         break;
     case 'dev':
         $host = 'dev.';
-        $GLOBALS['github_clint_id'] = '9bde4b321fcf41dda148';
-        $GLOBALS['$github_clint_secret'] = '54a9ccb474ccf7b983636c809ebb4aa08b38b616';
+        $GLOBALS['github_client_id'] = '9bde4b321fcf41dda148';
+        $GLOBALS['github_client_secret'] = '54a9ccb474ccf7b983636c809ebb4aa08b38b616';
         break;
     case 'local':
-        $GLOBALS['github_clint_id'] = 'ada764725e1bfefc2f87';
-        $GLOBALS['github_clint_secret'] = '316f6a2386178054a157499006957138ab130124';
+        $GLOBALS['github_client_id'] = 'ada764725e1bfefc2f87';
+        $GLOBALS['github_client_secret'] = '316f6a2386178054a157499006957138ab130124';
         $host = 'local.';
         break;
     default:
@@ -57,7 +57,7 @@ Route::group(array('domain' => $host . 'v2up.me'), function () {
     });
 
     Route::get('github', function () {
-        return Redirect::to('https://github.com/login/oauth/authorize?client_id=' . $GLOBALS['github_clint_id'] . '&scope=user,public_repo,gist');
+        return Redirect::to('https://github.com/login/oauth/authorize?client_id=' . $GLOBALS['github_client_id'] . '&scope=user,public_repo,gist');
         $client       = new Github\Client();
         $repositories = $client->api('user')->repositories('Sunnykale');
 //        return Response::json($repositories);
@@ -69,8 +69,8 @@ Route::group(array('domain' => $host . 'v2up.me'), function () {
         $code = Input::get('code', '');
         if ($code) {
             $params = [
-                'client_id'     => $GLOBALS['github_clint_id'],
-                'client_secret' => $GLOBALS['github_clint_secret'],
+                'client_id'     => $GLOBALS['github_client_id'],
+                'client_secret' => $GLOBALS['github_client_secret'],
                 'code'          => $code
             ];
             $return = CurlHelper::postUrl('https://github.com/login/oauth/access_token', $params);
