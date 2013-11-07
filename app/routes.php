@@ -11,16 +11,22 @@
 |
 */
 
-$env = 'testing';
+$env = 'dev';
 
 switch ($env) {
     case 'product':
         $host = '';
+        $GLOBALS['github_clint_id'] = 'a4269e446086e3571436';
+        $GLOBALS['github_clint_secret'] = 'b1f69b87ec27c1a3810a2ede96b7c27a8716e182';
         break;
-    case 'testing':
+    case 'dev':
         $host = 'dev.';
+        $GLOBALS['github_clint_id'] = '9bde4b321fcf41dda148';
+        $GLOBALS['$github_clint_secret'] = '54a9ccb474ccf7b983636c809ebb4aa08b38b616';
         break;
-    case 'development':
+    case 'local':
+        $GLOBALS['github_clint_id'] = 'ada764725e1bfefc2f87';
+        $GLOBALS['github_clint_secret'] = '316f6a2386178054a157499006957138ab130124';
         $host = 'local.';
         break;
     default:
@@ -28,11 +34,9 @@ switch ($env) {
 }
 
 
-Route::group(array('domain' => 'api.' . $host .'v2up.me'), function()
-{
+Route::group(array('domain' => 'api.' . $host . 'v2up.me'), function () {
 
-    Route::any('/', function()
-    {
+    Route::any('/', function () {
         return Response::json(array('c' => 200, 'm' => 'ok'));
     });
 
@@ -42,26 +46,36 @@ Route::group(array('domain' => 'api.' . $host .'v2up.me'), function()
 
 });
 
-Route::group(array('domain' => $host . 'v2up.me'), function()
-{
+Route::group(array('domain' => $host . 'v2up.me'), function () {
 
-    Route::get('/', function()
-    {
+    Route::get('/', function () {
         return View::make('hello');
     });
 
-    Route::get('user', function()
-    {
-        return  'local user';
+    Route::get('user', function () {
+        return 'local user';
     });
 
-    Route::get('github', function()
-    {
-        $client = new Github\Client();
+    Route::get('github', function () {
+        return Redirect::to('https://github.com/login/oauth/authorize?client_id=' . $GLOBALS['github_clint_id'] . '&scope=user,public_repo,gist');
+        $client       = new Github\Client();
         $repositories = $client->api('user')->repositories('Sunnykale');
-        return Response::json($repositories);
+//        return Response::json($repositories);
         $client->authenticate('a4269e446086e3571436', 'b1f69b87ec27c1a3810a2ede96b7c27a8716e182', Github\Client::AUTH_URL_CLIENT_ID);
         $client->api('login');
+    });
+
+    Route::get('callback/github', function () {
+        $code = Input::get('code', '');
+        if ($code) {
+            $params = [
+                'client_id'     => $GLOBALS['github_clint_id'],
+                'client_secret' => $GLOBALS['github_clint_secret'],
+                'code'          => $code
+            ];
+            $return = CurlHelper::postUrl('https://github.com/login/oauth/access_token', $params);
+            return Response::json($return);
+        }
     });
 
 });
