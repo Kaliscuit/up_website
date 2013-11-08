@@ -3,7 +3,7 @@ require '/srv/v2up.me/www/vendor/xunsearch/lib/XS.php';
 
 class PositionController extends BaseController {
 
-    public function suggestPosition() {
+    public function postSuggest() {
         $keyword    = Input::get('keyword', '');
         $xs         = new XS('zhaopin');
         $search     = $xs->search;
@@ -12,7 +12,7 @@ class PositionController extends BaseController {
         return Response::json(array('c' => 200, 'm' => 'ok', 'd' => array('count' => count($suggestion), 'positions' => $suggestion)));
     }
 
-    public function searchPosition() {
+    public function postSearch() {
         $keyword = Input::get('keyword', '');
         $xs      = new XS('zhaopin');
         $search  = $xs->search;

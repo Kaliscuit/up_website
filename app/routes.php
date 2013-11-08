@@ -40,10 +40,8 @@ Route::group(array('domain' => 'api.' . $host . 'v2up.me'), function () {
         return Response::json(array('c' => 200, 'm' => 'ok'));
     });
 
-    Route::any('position/suggest', 'PositionController@suggestPosition');
-    Route::any('position/search', 'PositionController@searchPosition');
-    Route::controller('users', 'UserController');
-//    Route::any('user/check', 'UserController@checkEmail');
+    Route::controller('user', 'UserController');
+    Route::controller('position', 'PositionController');
 
 });
 
