@@ -11,7 +11,7 @@ class UserController extends BaseController {
             case 404:
                 return Response::json(array('c' => 404, 'm' => 'Not Registered'));
             case 415:
-                return Response::json(array('c' => 415, 'm' => 'Email Syntax Invalid'));
+                return Response::json(array('c' => 406, 'm' => 'Email Syntax Invalid'));
         }
     }
 
@@ -41,7 +41,7 @@ class UserController extends BaseController {
             case 409:
                 return Response::json(array('c' => 409, 'm' => 'Already Registered'));
             case 415:
-                return Response::json(array('c' => 415, 'm' => 'Email Syntax Invalid'));
+                return Response::json(array('c' => 406, 'm' => 'Email Syntax Invalid'));
         }
     }
 
