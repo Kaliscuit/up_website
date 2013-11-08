@@ -15,4 +15,8 @@ class BaseController extends Controller {
 		}
 	}
 
+    public function displayJson($code = 200, $msg = 'OK', $data = array()) {
+        return Response::json(array('c' => $code, 'm' => $msg, 'd' => $data));
+    }
+
 }

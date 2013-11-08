@@ -7,11 +7,11 @@ class UserController extends BaseController {
         $code  = $this->checkEmail($email);
         switch ($code) {
             case 409:
-                return Response::json(array('c' => 409, 'm' => 'Already Registered'));
+                $this->displayJson(409, 'Already Registered');
             case 404:
-                return Response::json(array('c' => 404, 'm' => 'Not Registered'));
+                $this->displayJson(404, 'Not Registered');
             case 415:
-                return Response::json(array('c' => 406, 'm' => 'Email Syntax Invalid'));
+                $this->displayJson(406, 'Email Syntax Invalid');
         }
     }
 
@@ -20,7 +20,7 @@ class UserController extends BaseController {
         $password = Input::get('password', '');
 
         if (strlen($password) < 6) {
-            return Response::json(array('c' => 406, 'm' => 'Email Syntax Invalid'));
+            $this->displayJson(406, 'Email Syntax Invalid');
         }
 
         $code = $this->checkEmail($email);
@@ -37,11 +37,11 @@ class UserController extends BaseController {
                 $user->save();
                 Auth::login($user, true);
 
-                return Response::json(array('c' => 200, 'm' => 'OK'));
+                $this->displayJson(200, 'OK');
             case 409:
-                return Response::json(array('c' => 409, 'm' => 'Already Registered'));
+                $this->displayJson(409, 'Already Registered');
             case 415:
-                return Response::json(array('c' => 406, 'm' => 'Email Syntax Invalid'));
+                $this->displayJson(406, 'Email Syntax Invalid');
         }
     }
 

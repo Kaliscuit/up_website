@@ -42,6 +42,10 @@ Route::group(array('domain' => 'api.' . $host . 'v2up.me'), function () {
 
     Route::controller('user', 'UserController');
     Route::controller('position', 'PositionController');
+    Route::get('profile', array('before' => 'auth', function()
+    {
+        return '1234';
+    }));
 
 });
 
