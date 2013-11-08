@@ -36,12 +36,19 @@ class UserController extends BaseController {
                 $user->birthday = '1991-04-06';
                 $user->save();
 
-                return Response::json(array('c' => 200, 'm' => 'OK'));
+                return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array()));
             case 409:
                 return Response::json(array('c' => 409, 'm' => 'Already Registered'));
             case 415:
                 return Response::json(array('c' => 415, 'm' => 'Email Syntax Invalid'));
         }
+    }
+
+    public function postLogin() {
+        $email    = Input::get('email', '');
+        $password = Input::get('password', '');
+
+
     }
 
     private function checkEmail($email) {
