@@ -78,7 +78,7 @@ class UserController extends BaseController {
         return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('email' => $email)));
     }
 
-    public function getProfile() {
+    public function postProfile() {
         $uid = Input::get('uid', '');
         if ($uid) {
             return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => User::find($uid)->toJson())));
