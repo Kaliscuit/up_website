@@ -26,7 +26,7 @@ class UserController extends BaseController {
         $code = $this->checkEmail($email);
         switch ($code) {
             case 404:
-                $password       = md5($password . 'up_user');
+                $password       = Hash::make($password);;
                 $user           = new User;
                 $user->email    = $email;
                 $user->password = $password;
