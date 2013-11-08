@@ -62,6 +62,8 @@ class UserController extends BaseController {
     public function postSetName() {
         $name  = Input::get('name', '');
         $email = Session::get('email');
+
+        return Response::json(array('c' => 200, 'm' => $email));
         if ($email) {
             $user = User::where('email', '=', $email);
             $user->name = $name;
