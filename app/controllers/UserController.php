@@ -64,8 +64,8 @@ class UserController extends BaseController {
         $name  = Input::get('name', '');
         $email = Session::get('email');
 
-        $user = User::get(['email' => $email]);
-        return Response::json(array('c' => $email, 'm' => $user->password));
+        $user = User::where(['email' => $email])->get();
+        return Response::json($user);
         if ($email) {
             $user       = User::where('email', '=', $email);
             $user->name = $name;
