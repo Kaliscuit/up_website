@@ -80,8 +80,11 @@ class UserController extends BaseController {
     public function postProfile() {
         $uid  = Input::get('uid', '');
         $user = $uid ? User::find($uid) : Auth::user();
-
-        return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user->toJson())));
+        if ($user) {
+            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user->toJson())));
+        } else {
+            return Response::json(array('c' => 404, 'm' => 'Invalid Uid'));
+        }
     }
 
     private function checkEmail($email) {
