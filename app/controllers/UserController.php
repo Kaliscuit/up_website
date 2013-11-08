@@ -62,9 +62,8 @@ class UserController extends BaseController {
 
     public function postSetName() {
         $name = Input::get('name', '');
-        $uid  = Session::get('uid');
+        $user = Auth::user();
 
-        $user       = User::find($uid);
         $user->name = $name;
         $user->save();
 
