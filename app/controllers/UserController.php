@@ -100,6 +100,7 @@ class UserController extends BaseController {
             array('email' => $email),
             array('email' => 'Required|email')
         );
+        Log::info('email------------' . $email . '-----' .  $validator->errors());
         if ($validator->passes()) {
             $user = User::where('email', '=', $email)->count();
             if ($user) {
