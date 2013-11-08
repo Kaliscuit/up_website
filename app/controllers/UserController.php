@@ -65,17 +65,9 @@ class UserController extends BaseController {
         $email = Session::get('email');
 
         $user = User::where('email', '=', $email)->get();
-        return Response::json($user);
-
-        if ($email) {
-            $user       = User::where('email', '=', $email);
-            $user->name = $name;
-            $user->save();
-
-            return Response::json(array('c' => 200, 'm' => 'OK'));
-        } else {
-            return Response::json(array('c' => 403, 'm' => 'Need Login'));
-        }
+        $user[0]->name = $name;
+        $user[0]->save();
+        return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user[0]->roles->toJson())));
     }
 
     private function checkEmail($email) {
