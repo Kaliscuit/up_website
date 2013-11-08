@@ -13,7 +13,7 @@ class UserController extends BaseController {
                 Log::info('check------------404');
                 $this->displayJson(404, 'Not Registered');
             case 406:
-                Log::info('check------------404');
+                Log::info('check------------406');
                 $this->displayJson(406, 'Email Syntax Invalid');
         }
     }
