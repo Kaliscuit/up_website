@@ -49,7 +49,7 @@ class UserController extends BaseController {
 
         $data = array(
             'email'    => Input::get('email'),
-            'password' => md5(Input::get('password') . 'up_user')
+            'password' => Input::get('password')
         );
 
         if (Auth::attempt($data, true)) {
