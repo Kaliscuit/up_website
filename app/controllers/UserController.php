@@ -35,8 +35,8 @@ class UserController extends BaseController {
                 $user->gender   = '';
                 $user->birthday = '1991-04-06';
                 $user->save();
-
-                return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array()));
+                Session::put('email', $email);
+                return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('session_id' => session_id())));
             case 409:
                 return Response::json(array('c' => 409, 'm' => 'Already Registered'));
             case 415:
