@@ -46,28 +46,33 @@ class UserController extends BaseController {
     }
 
     public function postLogin() {
-
         $data = array(
             'email'    => Input::get('email'),
             'password' => Input::get('password')
         );
 
         if (Auth::attempt($data, true)) {
-            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => Auth::user()->toJson())));
+            Log::info('login------------ok');
+            $this->displayJson(200, 'OK', array('profile' => Auth::user()->toJson()));
         } else {
-            return Response::json(array('c' => 403, 'm' => 'Email or Password Invalid'));
+            Log::info('login------------403');
+            $this->displayJson(403, 'Email or Password Invalid');
         }
 
     }
 
     public function postSetName() {
-        $name = Input::get('name', '');
-        $user = Auth::user();
+        if (Auth::check()) {
+            $name = Input::get('name', '');
+            $user = Auth::user();
 
-        $user->name = $name;
-        $user->save();
+            $user->name = $name;
+            $user->save();
 
-        return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user->toJson())));
+            $this->displayJson(200, 'OK', array('profile' => $user->toJson()));
+        } else {
+            $this->displayJson(403, 'Forbidden');
+        }
     }
 
     public function postLogout() {
