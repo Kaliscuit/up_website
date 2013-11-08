@@ -35,7 +35,7 @@ class UserController extends BaseController {
                 $user->gender   = '';
                 $user->birthday = '1991-04-06';
                 $user->save();
-                Session::put('uid', $user->id);
+                Auth::login($user, true);
 
                 return Response::json(array('c' => 200, 'm' => 'OK'));
             case 409:
@@ -53,7 +53,7 @@ class UserController extends BaseController {
         );
 
         if (Auth::attempt($data, true)) {
-            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => [])));
+            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => Auth::user()->toJson())));
         } else {
             return Response::json(array('c' => 403, 'm' => 'Email or Password Invalid'));
         }
@@ -73,7 +73,8 @@ class UserController extends BaseController {
 
     public function anyLogout() {
         Auth::logout();
-        $uid  = Session::get('uid');
+        $email = Auth::user()->email;
+
         return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('uid' => $uid)));
     }
 
