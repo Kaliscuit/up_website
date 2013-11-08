@@ -68,15 +68,14 @@ class UserController extends BaseController {
             $user->save();
 
             return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user->toJson())));
+        } else {
+            return Response::json(array('c' => 403, 'm' => 'Forbidden'));
         }
-
     }
 
     public function postLogout() {
         Auth::logout();
-        $email = Auth::user()->email;
-
-        return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('email' => $email)));
+        return Response::json(array('c' => 200, 'm' => 'OK'));
     }
 
     public function postProfile() {
