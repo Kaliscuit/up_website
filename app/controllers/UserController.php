@@ -71,7 +71,7 @@ class UserController extends BaseController {
         return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user->toJson())));
     }
 
-    public function postLogout() {
+    public function anyLogout() {
         Auth::logout();
         $uid  = Session::get('uid');
         return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('uid' => $uid)));
