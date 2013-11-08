@@ -71,11 +71,11 @@ class UserController extends BaseController {
         return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user->toJson())));
     }
 
-    public function anyLogout() {
+    public function postLogout() {
         Auth::logout();
         $email = Auth::user()->email;
 
-        return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('uid' => $uid)));
+        return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('email' => $email)));
     }
 
     private function checkEmail($email) {
