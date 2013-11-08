@@ -42,7 +42,8 @@ Route::group(array('domain' => 'api.' . $host . 'v2up.me'), function () {
 
     Route::any('position/suggest', 'PositionController@suggestPosition');
     Route::any('position/search', 'PositionController@searchPosition');
-    Route::any('user/check', 'UserController@checkEmail');
+    Route::controller('users', 'UserController');
+//    Route::any('user/check', 'UserController@checkEmail');
 
 });
 
@@ -61,7 +62,7 @@ Route::group(array('domain' => $host . 'v2up.me'), function () {
         $client       = new Github\Client();
         $repositories = $client->api('user')->repositories('Sunnykale');
 //        return Response::json($repositories);
-        $client->authenticate('a4269e446086e3571436', 'b1f69b87ec27c1a3810a2ede96b7c27a8716e182', Github\Client::AUTH_URL_CLIENT_ID);
+        $client->authenticate($GLOBALS['github_client_id'], $GLOBALS['github_client_secret'], Github\Client::AUTH_URL_CLIENT_ID);
         $client->api('login');
     });
 
