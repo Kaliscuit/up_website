@@ -37,13 +37,17 @@ switch ($env) {
 Route::group(array('domain' => 'api.' . $host . 'v2up.me'), function () {
 
     Route::any('/', function () {
-        return Response::json(array('c' => 200, 'm' => 'ok'));
+        return Response::json(array('c' => 200, 'm' => 'OK'));
     });
 
     Route::controller('user', 'UserController');
     Route::controller('position', 'PositionController');
 
 });
+
+
+
+
 
 Route::group(array('domain' => $host . 'v2up.me'), function () {
 
