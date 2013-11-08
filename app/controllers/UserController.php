@@ -71,6 +71,13 @@ class UserController extends BaseController {
         return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user->toJson())));
     }
 
+    public function postLogout() {
+        Session::flush();
+        $uid  = Session::get('uid');
+        $user       = User::find($uid);
+        return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('uid' => $uid, 'profile' => $user->toJson())));
+    }
+
     private function checkEmail($email) {
         $validator = Validator::make(
             array('email' => $email),
