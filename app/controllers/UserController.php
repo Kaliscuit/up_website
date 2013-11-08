@@ -60,14 +60,14 @@ class UserController extends BaseController {
     }
 
     public function postSetName() {
-        if ($this->beforeFilter('auth')) {
+        if (Auth::check()) {
             $name = Input::get('name', '');
             $user = Auth::user();
 
             $user->name = $name;
             $user->save();
 
-        return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user->toJson())));
+            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user->toJson())));
         }
 
     }
