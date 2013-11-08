@@ -7,10 +7,13 @@ class UserController extends BaseController {
         $code  = $this->checkEmail($email);
         switch ($code) {
             case 409:
+                Log::info('check------------409');
                 $this->displayJson(409, 'Already Registered');
             case 404:
+                Log::info('check------------404');
                 $this->displayJson(404, 'Not Registered');
-            case 415:
+            case 406:
+                Log::info('check------------404');
                 $this->displayJson(406, 'Email Syntax Invalid');
         }
     }
@@ -40,7 +43,7 @@ class UserController extends BaseController {
                 $this->displayJson(200, 'OK');
             case 409:
                 $this->displayJson(409, 'Already Registered');
-            case 415:
+            case 406:
                 $this->displayJson(406, 'Email Syntax Invalid');
         }
     }
@@ -105,7 +108,7 @@ class UserController extends BaseController {
                 return 404;
             }
         } else {
-            return 415;
+            return 406;
         }
     }
 }
