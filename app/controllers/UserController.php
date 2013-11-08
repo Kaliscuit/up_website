@@ -26,7 +26,7 @@ class UserController extends BaseController {
         $code = $this->checkEmail($email);
         switch ($code) {
             case 404:
-                $password       = Hash::make($password);;
+                $password = Hash::make($password);;
                 $user           = new User;
                 $user->email    = $email;
                 $user->password = $password;
@@ -35,7 +35,7 @@ class UserController extends BaseController {
                 $user->gender   = '';
                 $user->birthday = '1991-04-06';
                 $user->save();
-                Session::put('email', $email);
+                Session::put('uid', $user->id);
 
                 return Response::json(array('c' => 200, 'm' => 'OK'));
             case 409:
@@ -61,13 +61,14 @@ class UserController extends BaseController {
     }
 
     public function postSetName() {
-        $name  = Input::get('name', '');
-        $email = Session::get('email');
+        $name = Input::get('name', '');
+        $uid  = Session::get('uid');
 
-        $user = User::where('email', '=', $email)->get();
-        $user[0]->name = $name;
-        $user[0]->save();
-        return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user[0]->roles->toJson())));
+        $user       = User::find($uid);
+        $user->name = $name;
+        $user->save();
+
+        return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user->roles->toJson())));
     }
 
     private function checkEmail($email) {
