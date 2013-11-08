@@ -36,7 +36,8 @@ class UserController extends BaseController {
                 $user->birthday = '1991-04-06';
                 $user->save();
                 Session::put('email', $email);
-                return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('session_id' => session_id())));
+
+                return Response::json(array('c' => 200, 'm' => 'OK'));
             case 409:
                 return Response::json(array('c' => 409, 'm' => 'Already Registered'));
             case 415:
@@ -49,6 +50,19 @@ class UserController extends BaseController {
         $password = Input::get('password', '');
 
 
+    }
+
+    public function postSetName() {
+        $name  = Input::get('name', '');
+        $email = Session::get('email');
+        if ($email) {
+            $user = User::where('email', '=', $email);
+            $user->name = $name;
+            $user->save();
+            return Response::json(array('c' => 200, 'm' => 'OK'));
+        } else {
+            return Response::json(array('c' => 403, 'm' => 'Need Login'));
+        }
     }
 
     private function checkEmail($email) {
