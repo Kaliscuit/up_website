@@ -68,7 +68,7 @@ class UserController extends BaseController {
         $user->name = $name;
         $user->save();
 
-        return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user->roles->toJson())));
+        return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user->toJson())));
     }
 
     private function checkEmail($email) {
