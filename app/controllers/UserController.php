@@ -66,6 +66,7 @@ class UserController extends BaseController {
 
         $user = User::where('email', '=', $email)->get();
         return Response::json($user);
+
         if ($email) {
             $user       = User::where('email', '=', $email);
             $user->name = $name;
