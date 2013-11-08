@@ -46,13 +46,14 @@ class UserController extends BaseController {
     }
 
     public function postLogin() {
-        $email    = Input::get('email', '');
-        $password = Input::get('password', '');
-        $user = User::where('email', '=', $email);
-        if ($user->password = md5($password . 'up_user')) {
-            Session::put('email', $email);
-            $profile = $user->get();
-            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $profile)));
+
+        $data = array(
+            'email'    => Input::get('email'),
+            'password' => md5(Input::get('password') . 'up_user')
+        );
+
+        if (Auth::attempt($data, true)) {
+            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => [])));
         } else {
             return Response::json(array('c' => 403, 'm' => 'Email or Password Invalid'));
         }
@@ -65,9 +66,10 @@ class UserController extends BaseController {
 
         return Response::json(array('c' => 200, 'm' => $email));
         if ($email) {
-            $user = User::where('email', '=', $email);
+            $user       = User::where('email', '=', $email);
             $user->name = $name;
             $user->save();
+
             return Response::json(array('c' => 200, 'm' => 'OK'));
         } else {
             return Response::json(array('c' => 403, 'm' => 'Need Login'));
