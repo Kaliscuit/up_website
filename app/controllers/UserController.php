@@ -51,7 +51,8 @@ class UserController extends BaseController {
         $user = User::where('email', '=', $email);
         if ($user->password = md5($password . 'up_user')) {
             Session::put('email', $email);
-            return Response::json(array('c' => 200, 'm' => 'OK'));
+            $profile = $user->get();
+            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $profile)));
         } else {
             return Response::json(array('c' => 403, 'm' => 'Email or Password Invalid'));
         }
