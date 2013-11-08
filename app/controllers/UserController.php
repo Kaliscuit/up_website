@@ -7,14 +7,11 @@ class UserController extends BaseController {
         $code  = $this->checkEmail($email);
         switch ($code) {
             case 409:
-                Log::info('check------------409');
-                $this->displayJson(409, 'Already Registered');
+                return Response::json(array('c' => 409, 'm' => 'Already Registered'));
             case 404:
-                Log::info('check------------404');
-                $this->displayJson(404, 'Not Registered');
+                return Response::json(array('c' => 404, 'm' => 'Not Registered'));
             case 406:
-                Log::info('check------------406');
-                $this->displayJson(406, 'Email Syntax Invalid');
+                return Response::json(array('c' => 406, 'm' => 'Email Syntax Invalid'));
         }
     }
 
@@ -23,7 +20,7 @@ class UserController extends BaseController {
         $password = Input::get('password', '');
 
         if (strlen($password) < 6) {
-            $this->displayJson(406, 'Email Syntax Invalid');
+            return Response::json(array('c' => 406, 'm' => 'Email Syntax Invalid'));
         }
 
         $code = $this->checkEmail($email);
@@ -40,11 +37,11 @@ class UserController extends BaseController {
                 $user->save();
                 Auth::login($user, true);
 
-                $this->displayJson(200, 'OK');
+                return Response::json(array('c' => 200, 'm' => 'OK'));
             case 409:
-                $this->displayJson(409, 'Already Registered');
+                return Response::json(array('c' => 409, 'm' => 'Already Registered'));
             case 406:
-                $this->displayJson(406, 'Email Syntax Invalid');
+                return Response::json(array('c' => 406, 'm' => 'Email Syntax Invalid'));
         }
     }
 
@@ -55,27 +52,24 @@ class UserController extends BaseController {
         );
 
         if (Auth::attempt($data, true)) {
-            Log::info('login------------ok');
-            $this->displayJson(200, 'OK', array('profile' => Auth::user()->toJson()));
+            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => Auth::user()->toJson())));
         } else {
-            Log::info('login------------403');
-            $this->displayJson(403, 'Email or Password Invalid');
+            return Response::json(array('c' => 403, 'm' => 'Email or Password Invalid'));
         }
 
     }
 
     public function postSetName() {
-        if (Auth::check()) {
+        if ($this->beforeFilter('auth')) {
             $name = Input::get('name', '');
             $user = Auth::user();
 
             $user->name = $name;
             $user->save();
 
-            $this->displayJson(200, 'OK', array('profile' => $user->toJson()));
-        } else {
-            $this->displayJson(403, 'Forbidden');
+        return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user->toJson())));
         }
+
     }
 
     public function postLogout() {
@@ -100,7 +94,6 @@ class UserController extends BaseController {
             array('email' => $email),
             array('email' => 'Required|email')
         );
-        Log::info('email------------' . $email . '-----' .  $validator->errors());
         if ($validator->passes()) {
             $user = User::where('email', '=', $email)->count();
             if ($user) {

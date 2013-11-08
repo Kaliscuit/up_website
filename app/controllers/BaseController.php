@@ -14,10 +14,4 @@ class BaseController extends Controller {
 			$this->layout = View::make($this->layout);
 		}
 	}
-
-    public function displayJson($code = 200, $msg = 'OK', $data = array()) {
-        Log::info(json_encode(array('c' => $code, 'm' => $msg, 'd' => $data)));
-        return Response::json(array('c' => $code, 'm' => $msg, 'd' => $data));
-    }
-
 }
