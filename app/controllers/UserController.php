@@ -24,15 +24,18 @@ class UserController extends BaseController {
         }
 
         $code = $this->checkEmail($email);
-        if ($code == 404) {
-            $password = md5($password . 'up_user');
-            $user           = new User;
-            $user->email    = $email;
-            $user->password = $password;
-            $user->save();
-            return Response::json(array('c' => 200, 'm' => 'OK'));
-        } else {
-            return Response::json(array('c' => 409, 'm' => 'Already Registered'));
+        switch ($code) {
+            case 404:
+                $password = md5($password . 'up_user');
+                $user           = new User;
+                $user->email    = $email;
+                $user->password = $password;
+                $user->save();
+                return Response::json(array('c' => 200, 'm' => 'OK'));
+            case 409:
+                return Response::json(array('c' => 409, 'm' => 'Already Registered'));
+            case 415:
+                return Response::json(array('c' => 415, 'm' => 'Email Syntax Invalid'));
         }
     }
 
