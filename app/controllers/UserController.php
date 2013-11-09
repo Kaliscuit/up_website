@@ -52,7 +52,7 @@ class UserController extends BaseController {
         );
 
         if (Auth::attempt($data, true)) {
-            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => Auth::user()->toJson())));
+            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => Auth::user()->toArray())));
         } else {
             return Response::json(array('c' => 403, 'm' => 'Email or Password Invalid'));
         }
@@ -67,7 +67,7 @@ class UserController extends BaseController {
             $user->name = $name;
             $user->save();
 
-            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user->toJson())));
+            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user->toArray())));
         } else {
             return Response::json(array('c' => 403, 'm' => 'Forbidden'));
         }
@@ -82,7 +82,7 @@ class UserController extends BaseController {
         $uid  = Input::get('uid', '');
         $user = $uid ? User::find($uid) : Auth::user();
         if ($user) {
-            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user->toJson())));
+            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user->toArray())));
         } else {
             return Response::json(array('c' => 404, 'm' => 'Invalid Uid'));
         }
