@@ -12,11 +12,11 @@
 			"app/commands",
 			"app/controllers",
 			"app/models",
-			"app/helpers",
 			"app/database/migrations",
-			"app/database/seeds",
-			"app/tests/TestCase.php"
-		]
+            "app/database/seeds",
+            "app/tests/TestCase.php",
+            "app/helpers"
+        ]
 	},
 	"scripts": {
 		"post-install-cmd": [
