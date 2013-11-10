@@ -18,7 +18,7 @@ class PositionController extends BaseController {
         $page    = $page > 1 ? $page : 1;
         $xs      = new XS('zhaopin');
         $search  = $xs->search;
-        $search->setLimit(10, ($page - 1) * 10);
+        $search->setLimit(11, ($page - 1) * 10);
         $docs   = $search->search('position:' . $keyword);
         $result = [];
         foreach ($docs as $doc) {
@@ -29,7 +29,24 @@ class PositionController extends BaseController {
             ];
         }
 
-        return Response::json(array('c' => 200, 'm' => 'ok', 'd' => array('count' => count($result), 'page' => $page, 'result' => $result)));
+        $count = count($result);
+        if ($count > 10) {
+            unset($result[10]);
+            $next = true;
+        } else {
+            $next = false;
+        }
+
+        return Response::json(array(
+            'c' => 200,
+            'm' => 'ok',
+            'd' => array(
+                'count'  => count($result),
+                'page'   => $page,
+                'next'   => $next,
+                'result' => $result
+            )
+        ));
     }
 
     public function postHot() {
