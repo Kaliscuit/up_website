@@ -32,12 +32,23 @@ class PositionController extends BaseController {
 
     public function anyPinyin() {
 
-//用法：
-//第二个参数留空则为gb1232编码
         $a = PinyinHelper::Pinyin('PHP100小涵');
-//第二个参数随意设置则为utf-8编码
         $b = PinyinHelper::Pinyin('龙熠');
         return $a . $b ;
+    }
+
+    public function anyTest() {
+        $keyword = Input::get('keyword', '');
+        $xs      = new XS('zhaopin');
+        $search  = $xs->search;
+        $search->setLimit(5);
+        $docs   = $search->search('position:' . $keyword);
+        $result = [];
+        foreach ($docs as $doc) {
+            $result[] = $doc;
+        }
+
+        return Response::json(array('c' => 200, 'm' => 'ok', 'd' => array('count' => count($result), 'result' => $result)));
     }
 
 }
