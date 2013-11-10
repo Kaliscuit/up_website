@@ -22,7 +22,7 @@ class PositionController extends BaseController {
         foreach ($docs as $doc) {
             $result[] = [
                 'id'            => $doc->int,
-                'position'      => $doc->position,
+                'position'      => $search->highlight($doc->position),
                 'position_desc' => $doc->position_desc
             ];
         }
@@ -95,5 +95,9 @@ class PositionController extends BaseController {
         ];
 
         return Response::json(array('c' => 200, 'm' => 'ok', 'd' => array('count' => count($positions), 'positions' => $positions)));
+    }
+
+    public function postProfile() {
+
     }
 }
