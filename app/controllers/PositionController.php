@@ -4,12 +4,16 @@ require '/srv/v2up.me/www/vendor/xunsearch/lib/XS.php';
 class PositionController extends BaseController {
 
     public function postSuggest() {
-        $keyword    = Input::get('keyword', '');
-        $xs         = new XS('zhaopin');
-        $search     = $xs->search;
-        $suggestion = $search->getExpandedQuery($keyword);
+        $keyword      = Input::get('keyword', '');
+        $xs           = new XS('zhaopin');
+        $search       = $xs->search;
+        $result       = $search->getExpandedQuery($keyword);
+        $suggestions = [];
+        foreach ($result as $item) {
+            $suggestions[] = $search->highlight($item);
+        }
 
-        return Response::json(array('c' => 200, 'm' => 'ok', 'd' => array('count' => count($suggestion), 'positions' => $suggestion)));
+        return Response::json(array('c' => 200, 'm' => 'ok', 'd' => array('count' => count($suggestions), 'suggestions' => $suggestions)));
     }
 
     public function postSearch() {
@@ -34,7 +38,8 @@ class PositionController extends BaseController {
 
         $a = PinyinHelper::Pinyin('PHP100小涵');
         $b = PinyinHelper::Pinyin('龙熠');
-        return $a . $b ;
+
+        return $a . $b;
     }
 
     public function anyTest() {
