@@ -47,10 +47,10 @@ class PinyinHelper {
             "|-10270|-10262|-10260|-10256|-10254";
         $_TDataKey   = explode('|', $_DataKey);
         $_TDataValue = explode('|', $_DataValue);
-        $_Data       = (PHP_VERSION >= '5.0') ? array_combine($_TDataKey, $_TDataValue) : _Array_Combine($_TDataKey, $_TDataValue);
+        $_Data       = (PHP_VERSION >= '5.0') ? array_combine($_TDataKey, $_TDataValue) : self::_Array_Combine($_TDataKey, $_TDataValue);
         arsort($_Data);
         reset($_Data);
-        if ($_Code != 'gb2312') $_String = _U2_Utf8_Gb($_String);
+        if ($_Code != 'gb2312') $_String = self::_U2_Utf8_Gb($_String);
         $_Res = '';
         for ($i = 0; $i < strlen($_String); $i++) {
             $_P = ord(substr($_String, $i, 1));
@@ -58,13 +58,13 @@ class PinyinHelper {
                 $_Q = ord(substr($_String, ++$i, 1));
                 $_P = $_P * 256 + $_Q - 65536;
             }
-            $_Res .= _Pinyin($_P, $_Data);
+            $_Res .= self::_Pinyin($_P, $_Data);
         }
 
         return preg_replace("/[^a-z0-9]*/", '', $_Res);
     }
 
-    protected function _Pinyin($_Num, $_Data) {
+    protected static function _Pinyin($_Num, $_Data) {
         if ($_Num > 0 && $_Num < 160) return chr($_Num);
         elseif ($_Num < -20319 || $_Num > -10247) return '';
         else {
@@ -76,7 +76,7 @@ class PinyinHelper {
         }
     }
 
-    protected function _U2_Utf8_Gb($_C) {
+    protected static function _U2_Utf8_Gb($_C) {
         $_String = '';
         if ($_C < 0x80) $_String .= $_C;
         elseif ($_C < 0x800) {
@@ -96,7 +96,7 @@ class PinyinHelper {
         return iconv('UTF-8', 'GB2312', $_String);
     }
 
-    protected function _Array_Combine($_Arr1, $_Arr2) {
+    protected static function _Array_Combine($_Arr1, $_Arr2) {
         for ($i = 0; $i < count($_Arr1); $i++) $_Res[$_Arr1[$i]] = $_Arr2[$i];
 
         return $_Res;
