@@ -34,9 +34,9 @@ class PositionController extends BaseController {
 
 //用法：
 //第二个参数留空则为gb1232编码
-        $a = Pinyin('PHP100中文网');
+        $a = PinyinHelper::Pinyin('PHP100中文网');
 //第二个参数随意设置则为utf-8编码
-        $b = Pinyin('张恩民', 1);
+        $b = PinyinHelper::Pinyin('张恩民', 1);
         return $a . $b ;
     }
 
