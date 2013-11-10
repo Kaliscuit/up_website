@@ -45,7 +45,11 @@ class PositionController extends BaseController {
         $docs   = $search->search('position:' . $keyword);
         $result = [];
         foreach ($docs as $doc) {
-            $result[] = $doc;
+            $result[] = [
+                'id'            => $doc->int,
+                'position'      => $search->highlight($doc->position),
+                'position_desc' => $doc->position_desc
+            ];
         }
 
         return Response::json(array('c' => 200, 'm' => 'ok', 'd' => array('count' => count($result), 'result' => $result)));
