@@ -29,7 +29,7 @@ class PositionController extends BaseController {
             ];
         }
 
-        return Response::json(array('c' => 200, 'm' => 'ok', 'd' => array('count' => count($result), 'result' => $result)));
+        return Response::json(array('c' => 200, 'm' => 'ok', 'd' => array('count' => count($result), 'page' => $page, 'result' => $result)));
     }
 
     public function postHot() {
