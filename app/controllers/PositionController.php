@@ -14,9 +14,11 @@ class PositionController extends BaseController {
 
     public function postSearch() {
         $keyword = Input::get('keyword', '');
+        $page    = intval(Input::get('page', 1));
+        $page    = $page > 1 ? $page : 1;
         $xs      = new XS('zhaopin');
         $search  = $xs->search;
-        $search->setLimit(5);
+        $search->setLimit(10, ($page - 1) * 10);
         $docs   = $search->search('position:' . $keyword);
         $result = [];
         foreach ($docs as $doc) {
