@@ -13,12 +13,20 @@ class PositionController extends BaseController {
 //    }
 
     public function postSuggest() {
-        $keyword    = Input::get('keyword', '');
-        $xs         = new XS('zhaopin');
-        $search     = $xs->search;
-        $suggestion = $search->search('position:' . $keyword);
+        $keyword = Input::get('keyword', '');
+        $xs      = new XS('zhaopin');
+        $search  = $xs->search;
+        $search->setLimit(5);
+        $docs   = $search->search('position:' . $keyword);
+        $result = [];
+        foreach ($docs as $doc) {
+            $result[] = [
+                'id'            => $doc->int,
+                'position'      => $doc->position
+            ];
+        }
 
-        return Response::json(array('c' => 200, 'm' => 'ok', 'd' => array('count' => count($suggestion), 'positions' => $suggestion)));
+        return Response::json(array('c' => 200, 'm' => 'ok', 'd' => array('count' => count($result), 'result' => $result)));
     }
 
     public function postSearch() {
