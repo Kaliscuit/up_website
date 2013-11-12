@@ -25,13 +25,13 @@ class PositionController extends BaseController {
             $result = [];
             foreach ($docs as $doc) {
                 $result[] = [
-                    'id'            => $doc->int,
+                    'id'            => $doc->id,
                     'position'      => $search->highlight($doc->position),
                     'position_desc' => $doc->position_desc
                 ];
             }
         } else {
-            $result = Position::take(11)->skip(($page - 1) * 10)->get(['int', 'position', 'position_desc'])->toArray();
+            $result = Position::take(11)->skip(($page - 1) * 10)->get(['id', 'position', 'position_desc'])->toArray();
         }
 
         $count = count($result);

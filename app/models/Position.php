@@ -3,7 +3,7 @@
 /**
  * Class Position
  *
- * @property int              $int
+ * @property id               $id
  * @property url              $url
  * @property position         $position
  * @property position_desc    $position_desc
