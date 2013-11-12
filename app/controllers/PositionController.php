@@ -16,17 +16,22 @@ class PositionController extends BaseController {
         $keyword = Input::get('keyword', '');
         $page    = intval(Input::get('page', 1));
         $page    = $page > 1 ? $page : 1;
-        $xs      = new XS('zhaopin');
-        $search  = $xs->search;
-        $search->setLimit(11, ($page - 1) * 10);
-        $docs   = $search->search('position:' . $keyword);
-        $result = [];
-        foreach ($docs as $doc) {
-            $result[] = [
-                'id'            => $doc->int,
-                'position'      => $search->highlight($doc->position),
-                'position_desc' => $doc->position_desc
-            ];
+
+        if ($keyword) {
+            $xs     = new XS('zhaopin');
+            $search = $xs->search;
+            $search->setLimit(11, ($page - 1) * 10);
+            $docs   = $search->search('position:' . $keyword);
+            $result = [];
+            foreach ($docs as $doc) {
+                $result[] = [
+                    'id'            => $doc->int,
+                    'position'      => $search->highlight($doc->position),
+                    'position_desc' => $doc->position_desc
+                ];
+            }
+        } else {
+            $result = Position::take(11)->skip(($page - 1) * 10)->get(['id', 'position', 'position_desc']);
         }
 
         $count = count($result);
@@ -117,7 +122,6 @@ class PositionController extends BaseController {
     }
 
     public function postProfile() {
-        $count = Position::take(10)->skip(10)->get();
-        return Response::json($count);
+
     }
 }
