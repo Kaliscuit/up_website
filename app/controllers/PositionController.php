@@ -41,7 +41,7 @@ class PositionController extends BaseController {
         } else {
             $next = false;
         }
-
+        Log::alert(var_dump($result));
         return Response::json(array(
             'c' => 200,
             'm' => 'ok',
