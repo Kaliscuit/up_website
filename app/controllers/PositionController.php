@@ -31,7 +31,7 @@ class PositionController extends BaseController {
                 ];
             }
         } else {
-            $result = Position::take(11)->skip(($page - 1) * 10)->get(['int', 'position', 'position_desc']);
+            $result = Position::take(11)->skip(($page - 1) * 10)->get(['int', 'position', 'position_desc'])->toArray();
         }
 
         $count = count($result);
@@ -41,7 +41,6 @@ class PositionController extends BaseController {
         } else {
             $next = false;
         }
-        Log::alert(var_dump($result));
         return Response::json(array(
             'c' => 200,
             'm' => 'ok',
