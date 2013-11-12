@@ -117,6 +117,7 @@ class PositionController extends BaseController {
     }
 
     public function postProfile() {
-
+        $count = Position::all()->count();
+        return Response::json($count);
     }
 }
