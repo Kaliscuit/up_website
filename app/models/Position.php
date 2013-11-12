@@ -16,6 +16,6 @@
 class Position extends Eloquent {
 
     protected $table = 'zhaopin';
-    protected $timestamps = false;
+    public $timestamps = false;
 
 }
