@@ -18,6 +18,7 @@ class UserController extends BaseController {
     public function postRegister() {
         $email    = Input::get('email', '');
         $password = Input::get('password', '');
+        $name     = Input::get('name', '');
 
         if (strlen($password) < 6) {
             return Response::json(array('c' => 406, 'm' => 'Email Syntax Invalid'));
@@ -26,12 +27,12 @@ class UserController extends BaseController {
         $code = $this->checkEmail($email);
         switch ($code) {
             case 404:
-                $password = Hash::make($password);
+                $password       = Hash::make($password);
                 $user           = new User;
                 $user->email    = $email;
                 $user->password = $password;
-                $user->name     = '';
-                $user->avatar   = 'default';
+                $user->name     = $name;
+                $user->avatar   = 'http://pic3.nipic.com/20090715/533469_150722031_2.jpg';
                 $user->gender   = '';
                 $user->birthday = '1991-04-06';
                 $user->save();
@@ -75,6 +76,7 @@ class UserController extends BaseController {
 
     public function postLogout() {
         Auth::logout();
+
         return Response::json(array('c' => 200, 'm' => 'OK'));
     }
 
