@@ -24,17 +24,11 @@ class PositionController extends BaseController {
             $docs   = $search->search('position:' . $keyword);
             $result = [];
             foreach ($docs as $doc) {
-                /*$result[] = [
+                $result[] = [
                     'id'            => $doc->id,
                     'position'      => $search->highlight($doc->position),
                     'position_desc' => $doc->position_desc
-                ];*/
-                $a = [];
-                foreach ($doc as $k => $v) {
-                    Log::info('--------', array($k, $v));
-                    $a[$k] = $v;
-                }
-                $result[] = $a;
+                ];
             }
         } else {
             $result = Position::take(11)->skip(($page - 1) * 10)->get(['id', 'position', 'position_desc'])->toArray();
@@ -129,4 +123,5 @@ class PositionController extends BaseController {
     public function postProfile() {
 
     }
+
 }
