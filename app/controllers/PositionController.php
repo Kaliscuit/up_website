@@ -121,7 +121,13 @@ class PositionController extends BaseController {
     }
 
     public function postProfile() {
-
+        $pid  = Input::get('pid', '');
+        $position = Position::find($pid);
+        if ($position) {
+            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $position->toArray())));
+        } else {
+            return Response::json(array('c' => 404, 'm' => 'Invalid Pid'));
+        }
     }
 
 }
