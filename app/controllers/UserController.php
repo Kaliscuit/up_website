@@ -80,6 +80,8 @@ class UserController extends BaseController {
 
     public function postProfile() {
         $uid  = Input::get('uid', '');
+        Log::alert('----cookie', $_COOKIE);
+        Log::alert('----request', $_REQUEST);
         $user = $uid ? User::find($uid) : Auth::user();
         if ($user) {
             return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user->toArray())));
