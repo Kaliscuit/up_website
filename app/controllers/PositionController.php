@@ -29,7 +29,12 @@ class PositionController extends BaseController {
                     'position'      => $search->highlight($doc->position),
                     'position_desc' => $doc->position_desc
                 ];*/
-                $result[] = $doc;
+                $a = [];
+                foreach ($doc as $k => $v) {
+                    Log::info('--------', array($k, $v));
+                    $a[$k] = $v;
+                }
+                $result[] = $a;
             }
         } else {
             $result = Position::take(11)->skip(($page - 1) * 10)->get(['id', 'position', 'position_desc'])->toArray();
