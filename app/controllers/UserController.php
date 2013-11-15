@@ -103,7 +103,7 @@ class UserController extends BaseController {
                 return 404;
             }
         } else {
-            Log::info('--------------', $validator->errors());
+            Log::info('--------------', $validator->errors()->getMessages());
             return 406;
         }
     }
