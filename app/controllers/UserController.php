@@ -21,7 +21,7 @@ class UserController extends BaseController {
         $name     = Input::get('name', '');
 
         if (strlen($password) < 6) {
-            return Response::json(array('c' => 406, 'm' => 'Email Syntax Invalid'));
+            return Response::json(array('c' => 407, 'm' => 'Invalid Password Size'));
         }
 
         $code = $this->checkEmail($email);
