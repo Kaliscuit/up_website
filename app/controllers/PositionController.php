@@ -5,9 +5,12 @@ class PositionController extends BaseController {
 
     public function postSuggest() {
         $keyword     = Input::get('keyword', '');
-        $xs          = new XS('zhaopin');
-        $search      = $xs->search;
-        $suggestions = $search->getExpandedQuery($keyword, 5);
+        $suggestions = [];
+        if ($keyword) {
+            $xs          = new XS('zhaopin');
+            $search      = $xs->search;
+            $suggestions = $search->getExpandedQuery($keyword, 5);
+        }
 
         return Response::json(array('c' => 200, 'm' => 'ok', 'd' => array('count' => count($suggestions), 'suggestions' => $suggestions)));
     }
@@ -41,6 +44,7 @@ class PositionController extends BaseController {
         } else {
             $next = false;
         }
+
         return Response::json(array(
             'c' => 200,
             'm' => 'ok',
@@ -121,7 +125,7 @@ class PositionController extends BaseController {
     }
 
     public function postProfile() {
-        $pid  = Input::get('pid', '');
+        $pid      = Input::get('pid', '');
         $position = Position::find($pid);
         if ($position) {
             return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $position->toArray())));
