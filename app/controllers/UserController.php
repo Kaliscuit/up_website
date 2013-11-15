@@ -38,7 +38,7 @@ class UserController extends BaseController {
                 $user->save();
                 Auth::login($user, true);
 
-                return Response::json(array('c' => 200, 'm' => 'OK'));
+                return Response::json(array('c' => 200, 'm' => 'OK', 'd' => $user->toArray()));
             case 409:
                 return Response::json(array('c' => 409, 'm' => 'Already Registered'));
             case 406:
@@ -103,7 +103,6 @@ class UserController extends BaseController {
                 return 404;
             }
         } else {
-            Log::info('--------------', $validator->errors()->get('email'));
             return 406;
         }
     }
