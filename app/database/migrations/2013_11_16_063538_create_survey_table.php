@@ -11,7 +11,12 @@ class CreateSurveyTable extends Migration {
 	 */
 	public function up()
 	{
-		//
+        Schema::create('survey', function($table)
+        {
+//            $table->increments('id');
+//            $table->
+
+        });
 	}
 
 	/**
