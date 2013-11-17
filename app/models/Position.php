@@ -7,6 +7,7 @@
  * @property url              $url
  * @property position         $position
  * @property position_desc    $position_desc
+ * @property requirements     $requirements
  * @property company          $company
  * @property company_desc     $company_desc
  * @property company_address  $company_address

@@ -13,8 +13,8 @@ class CreateSurveyTable extends Migration {
 	{
         Schema::create('survey', function($table)
         {
-//            $table->increments('id');
-//            $table->
+            $table->increments('id');
+
 
         });
 	}
