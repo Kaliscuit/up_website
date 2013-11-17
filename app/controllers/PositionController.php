@@ -1,9 +1,7 @@
 <?php
 
 require base_path() . '/vendor/xunsearch/lib/XS.php';
-
-//require '../../vendor/xunsearch/lib/XS.php';
-//require '/srv/v2up.me/www/vendor/xunsearch/lib/XS.php';
+require app_path() . '/helpers/simpleHtmlDomHelper.php';
 
 class PositionController extends BaseController {
 
@@ -31,11 +29,20 @@ class PositionController extends BaseController {
             $docs   = $search->search('position:' . $keyword);
             $result = [];
             foreach ($docs as $doc) {
+                $highlight = [];
+                $dom       = str_get_html($search->highlight($doc->position));
+                foreach ($dom->find('em') as $item) {
+                    $highlight[] = strip_tags($item->innertext);
+                }
+
                 $result[] = [
-                    'id'            => $doc->id,
-                    'position'      => $search->highlight($doc->position),
+                    'id'           => $doc->id,
+                    'position'     => $doc->position,
+                    'highlight'    => $highlight,
                     'requirements' => $doc->requirements
                 ];
+
+
             }
         } else {
             $result = Position::take(11)->skip(($page - 1) * 10)->get(['id', 'position', 'requirements'])->toArray();
