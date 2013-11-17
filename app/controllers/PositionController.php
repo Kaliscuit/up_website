@@ -34,11 +34,11 @@ class PositionController extends BaseController {
                 $result[] = [
                     'id'            => $doc->id,
                     'position'      => $search->highlight($doc->position),
-                    'position_desc' => $doc->position_desc
+                    'requirements' => $doc->requirements
                 ];
             }
         } else {
-            $result = Position::take(11)->skip(($page - 1) * 10)->get(['id', 'position', 'position_desc'])->toArray();
+            $result = Position::take(11)->skip(($page - 1) * 10)->get(['id', 'position', 'requirements'])->toArray();
         }
 
         $count = count($result);
@@ -130,7 +130,7 @@ class PositionController extends BaseController {
 
     public function postProfile() {
         $pid      = Input::get('pid', '');
-        $position = Position::find($pid);
+        $position = Position::find($pid, ['id', 'position', 'requirements']);
         if ($position) {
             return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $position->toArray())));
         } else {
