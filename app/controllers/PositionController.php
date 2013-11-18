@@ -146,4 +146,15 @@ class PositionController extends BaseController {
         }
     }
 
+    public function anyTest() {
+        $xs     = new XS('zhaopin');
+        $search = $xs->search;
+        $docs   = $search->search('position:php');
+        $result = '';
+        foreach ($docs as $doc) {
+            $result .= $doc->requirements;
+        }
+        var_dump($result);
+    }
+
 }
