@@ -13,6 +13,7 @@
  * @property company_address  $company_address
  * @property company_homepage $company_homepage
  * @property rank             $rank
+ * @property hot              $hot
  * @property time             $time
  */
 class Position extends Eloquent {

@@ -42,12 +42,13 @@ class PositionController extends BaseController {
                     'highlight'     => $highlight,
                     'requirements'  => $doc->requirements,
                     'rank'          => $doc->rank
+                    'hot'           => $doc->hot
                 ];
 
 
             }
         } else {
-            $result = Position::take(11)->skip(($page - 1) * 10)->get(['id', 'position', 'position_desc', 'requirements', 'rank'])->toArray();
+            $result = Position::take(11)->skip(($page - 1) * 10)->get(['id', 'position', 'position_desc', 'requirements', 'rank', 'hot'])->toArray();
         }
 
         $count = count($result);
@@ -139,7 +140,7 @@ class PositionController extends BaseController {
 
     public function postProfile() {
         $pid      = Input::get('pid', '');
-        $position = Position::find($pid, ['id', 'position', 'position_desc', 'requirements', 'rank']);
+        $position = Position::find($pid, ['id', 'position', 'position_desc', 'requirements', 'rank', 'hot']);
         if ($position) {
             return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $position->toArray())));
         } else {
