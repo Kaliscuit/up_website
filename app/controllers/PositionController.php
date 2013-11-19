@@ -41,7 +41,7 @@ class PositionController extends BaseController {
                     'position_desc' => $doc->position_desc,
                     'highlight'     => $highlight,
                     'requirements'  => $doc->requirements,
-                    'rank'          => $doc->rank
+                    'rank'          => $doc->rank,
                     'hot'           => $doc->hot
                 ];
 
