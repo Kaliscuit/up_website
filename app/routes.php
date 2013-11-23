@@ -52,7 +52,7 @@ Route::group(array('domain' => 'api.' . $host . 'v2up.me'), function () {
 Route::group(array('domain' => $host . 'v2up.me'), function () {
 
     Route::get('/', function () {
-        return View::make('hello');
+        return View::make('index');
     });
 
     Route::get('user', function () {
