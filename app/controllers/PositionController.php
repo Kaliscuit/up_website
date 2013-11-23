@@ -52,8 +52,8 @@ class PositionController extends BaseController {
         }
 
         $count = count($result);
-        if ($count > 10) {
-            unset($result[10]);
+        if ($count > 20) {
+            unset($result[20]);
             $next = true;
         } else {
             $next = false;
