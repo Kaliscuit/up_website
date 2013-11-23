@@ -55,9 +55,8 @@ Route::group(array('domain' => $host . 'v2up.me'), function () {
         return View::make('index');
     });
 
-    Route::get('user/login', function () {
-        return View::make('user/login');
-    });
+    Route::controller('user', 'UserController');
+    Route::controller('position', 'PositionController');
 
     Route::get('github', function () {
         return Redirect::to('https://github.com/login/oauth/authorize?client_id=' . $GLOBALS['github_client_id'] . '&scope=user,public_repo,gist');

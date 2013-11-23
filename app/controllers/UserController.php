@@ -46,6 +46,10 @@ class UserController extends BaseController {
         }
     }
 
+    public function getLogin() {
+        return View::make('user/login');
+    }
+
     public function postLogin() {
         $data = array(
             'email'    => Input::get('email'),
