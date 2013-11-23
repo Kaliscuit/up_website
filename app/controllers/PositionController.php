@@ -25,7 +25,7 @@ class PositionController extends BaseController {
         if ($keyword) {
             $xs     = new XS('zhaopin');
             $search = $xs->search;
-            $search->setLimit(11, ($page - 1) * 10);
+            $search->setLimit(21, ($page - 1) * 20);
             $docs   = $search->search('position:' . $keyword);
             $result = [];
             foreach ($docs as $doc) {
