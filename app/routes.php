@@ -55,8 +55,8 @@ Route::group(array('domain' => $host . 'v2up.me'), function () {
         return View::make('index');
     });
 
-    Route::get('user', function () {
-        return 'local user';
+    Route::get('user/login', function () {
+        return View::make('user/login');
     });
 
     Route::get('github', function () {
