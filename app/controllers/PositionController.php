@@ -164,16 +164,17 @@ class PositionController extends BaseController {
                 $user_position->save();
             }
 
-            $pid       = 2;//TODO Debug off
+            $pid       = 2; //TODO Debug off
             $questions = Survey::where('pid', '=', $pid)->get()->first();
             $survey    = [];
             if ($questions) {
                 foreach (range(1, 10) as $i) {
-                    $suffix   = sprintf("%02d", $i);
-                    $q_suffix = 'q_' . $suffix;
-                    $qid      = $questions->$q_suffix;
+                    $suffix       = sprintf("%02d", $i);
+                    $q_suffix     = 'q_' . $suffix;
+                    $qid          = $questions->$q_suffix;
+                    $question_obj = SurveyQuestion::find($qid);
                     $question = [
-                        'question' => SurveyQuestion::find($qid)->get(['id', 'question'])->toArray(),
+                        'question' => ['id' => $question_obj->id, 'question' => $question_obj->question],
                         'options'  => SurveyOption::where('qid', '=', $qid)->get(['id', 'option', 'score', 'qid'])->toArray()
                     ];
                     $survey[] = $question;
