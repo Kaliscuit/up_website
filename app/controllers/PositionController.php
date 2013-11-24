@@ -155,7 +155,7 @@ class PositionController extends BaseController {
             $uid           = $user->id;
             $pid           = Input::get('pid', '');
             $user_position = UserPosition::where('uid', '=', $uid)->get()->first();
-            var_dump($user_position);
+            var_dump($user_position->toArray());
             die;
             if ($user_position) {
                 $user_position->pid = $pid;
