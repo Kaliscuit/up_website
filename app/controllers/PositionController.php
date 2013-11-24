@@ -157,13 +157,11 @@ class PositionController extends BaseController {
             if ($user_position) {
                 $user_position->pid = $pid;
                 $user_position->save();
-                var_dump(1111111);die;
             } else {
                 $user_position      = new UserPosition;
                 $user_position->uid = $uid;
                 $user_position->pid = $pid;
                 $user_position->save();
-                var_dump(22222222);die;
             }
 
             $data = [
