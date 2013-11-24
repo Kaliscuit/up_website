@@ -173,11 +173,11 @@ class PositionController extends BaseController {
                     $q_suffix     = 'q_' . $suffix;
                     $qid          = $questions->$q_suffix;
                     $question_obj = SurveyQuestion::find($qid);
-                    $question = [
+                    $question     = [
                         'question' => ['id' => $question_obj->id, 'question' => $question_obj->question],
                         'options'  => SurveyOption::where('qid', '=', $qid)->get(['id', 'option', 'score', 'qid'])->toArray()
                     ];
-                    $survey[] = $question;
+                    $survey[]     = $question;
                 }
 
                 return Response::json(array('c' => 200, 'm' => 'OK', 'd' => ['survey' => $survey]));
