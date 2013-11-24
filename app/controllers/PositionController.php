@@ -13,6 +13,7 @@ class PositionController extends BaseController {
             $search      = $xs->search;
             $suggestions = $search->getExpandedQuery($keyword, 5);
         }
+        Log::info('COOKIE---', $_COOKIE);
 
         return Response::json(array('c' => 200, 'm' => 'ok', 'd' => array('count' => count($suggestions), 'suggestions' => $suggestions)));
     }

@@ -42,6 +42,7 @@ Route::group(array('domain' => 'api.' . $host . 'v2up.me'), function () {
 
     Route::controller('user', 'UserController');
     Route::controller('position', 'PositionController');
+    Route::controller('survey', 'SurveyController');
 
 });
 
@@ -55,6 +56,7 @@ Route::group(array('domain' => $host . 'v2up.me'), function () {
 
     Route::controller('user', 'UserController');
     Route::controller('position', 'PositionController');
+    Route::controller('survey', 'SurveyController');
 
     Route::get('github', function () {
         return Redirect::to('https://github.com/login/oauth/authorize?client_id=' . $GLOBALS['github_client_id'] . '&scope=user,public_repo,gist');
