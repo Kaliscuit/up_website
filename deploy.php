@@ -8,7 +8,6 @@ if ($str1[0] == "Already up-to-date.") {
     echo "Updated.\n";
 }
 
-
 //while (True) {
 //    exec("git pull", $str1, $str2);
 //    try {
