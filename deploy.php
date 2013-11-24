@@ -1,4 +1,5 @@
 <?php
+
 while (True) {
     exec("git pull", $str1, $str2);
     try {
