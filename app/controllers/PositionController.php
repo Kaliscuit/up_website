@@ -151,15 +151,17 @@ class PositionController extends BaseController {
 
     public function postSelect() {
         if (Auth::check()) {
-            $user               = Auth::user();
-            $uid                = $user->id;
-            $user_position      = UserPosition::where('uid', '=', $uid)->get()->first();
-            $pid = Input::get('pid', '');
+            $user          = Auth::user();
+            $uid           = $user->id;
+            $pid           = Input::get('pid', '');
+            $user_position = UserPosition::where('uid', '=', $uid)->get()->first();
+            var_dump($user_position);
+            die;
             if ($user_position) {
                 $user_position->pid = $pid;
                 $user_position->save();
             } else {
-                $user_position = new UserPosition;
+                $user_position      = new UserPosition;
                 $user_position->uid = $uid;
                 $user_position->pid = $pid;
                 $user_position->save();
