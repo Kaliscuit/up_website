@@ -16,10 +16,15 @@ class SurveyController extends BaseController {
                 if ($questions) {
                     foreach (range(1, 10) as $i) {
                         $suffix   = sprintf("%02d", $i);
-                        $qid      = 'q_' . $suffix;
-                        $question = $questions->$qid;
+                        $q_suffix = 'q_' . $suffix;
+                        $qid      = $questions->$q_suffix;
+                        $question = [
+                            'question' => SurveyQuestion::find($qid)->toArray(),
+                            'options'  => SurveyOption::where('qid', '=', $qid)->toArray()
+                        ];
                         $survey[] = $question;
                     }
+
                     return Response::json(array('c' => 200, 'm' => 'OK', 'd' => ['survey' => $survey]));
                 } else {
                     return Response::json(array('c' => 404, 'm' => 'No Survey For This Position Yet.'));
