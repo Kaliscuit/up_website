@@ -165,7 +165,7 @@ class PositionController extends BaseController {
                 $user_position->save();
             }
 
-            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user_position->toArray())));
+            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => $user_position->toArray()));
         } else {
             return Response::json(array('c' => 403, 'm' => 'Forbidden'));
         }
