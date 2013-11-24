@@ -20,7 +20,7 @@ class SurveyController extends BaseController {
                         $qid      = $questions->$q_suffix;
                         $question = [
                             'question' => SurveyQuestion::find($qid)->toArray(),
-                            'options'  => SurveyOption::where('qid', '=', $qid)->toArray()
+                            'options'  => SurveyOption::where('qid', '=', $qid)->get()->toArray()
                         ];
                         $survey[] = $question;
                     }
