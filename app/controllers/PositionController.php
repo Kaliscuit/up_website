@@ -153,8 +153,7 @@ class PositionController extends BaseController {
         if (Auth::check()) {
             $user          = Auth::user();
             $uid           = $user->id;
-            $user_position = UserPosition::where('uid', '=', $uid)->get();
-
+            $user_position = UserPosition::where('uid', '=', $uid)->get()->first();
             return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user_position->toArray())));
         } else {
             return Response::json(array('c' => 403, 'm' => 'Forbidden'));
