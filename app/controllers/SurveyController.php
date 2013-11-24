@@ -11,7 +11,7 @@ class SurveyController extends BaseController {
             if ($user_position) {
                 $pid       = $user_position->pid;
                 $pid       = 2;
-                $questions = Survey::where('pid', '=', $pid)->get()->first();
+                $questions = Survey::where('pid', '=', $pid)->get(['id', 'question'])->first();
                 $survey    = [];
                 if ($questions) {
                     foreach (range(1, 10) as $i) {
@@ -20,7 +20,7 @@ class SurveyController extends BaseController {
                         $qid      = $questions->$q_suffix;
                         $question = [
                             'question' => SurveyQuestion::find($qid)->toArray(),
-                            'options'  => SurveyOption::where('qid', '=', $qid)->get()->toArray()
+                            'options'  => SurveyOption::where('qid', '=', $qid)->get(['id', 'option', 'score', 'qid'])->toArray()
                         ];
                         $survey[] = $question;
                     }
