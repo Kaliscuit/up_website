@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSurveyTable extends Migration {
+class CreateSurveyQuestionTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,11 +11,11 @@ class CreateSurveyTable extends Migration {
 	 */
 	public function up()
 	{
-        Schema::create('survey', function($table)
+        Schema::create('survey_question', function($table)
         {
             $table->increments('id');
-
-
+            $table->text('question');
+            $table->timestamps();
         });
 	}
 
@@ -26,7 +26,7 @@ class CreateSurveyTable extends Migration {
 	 */
 	public function down()
 	{
-		//
+        Schema::drop('survey_question');
 	}
 
 }
