@@ -155,8 +155,7 @@ class PositionController extends BaseController {
             $uid           = $user->id;
             $pid           = Input::get('pid', '');
             $user_position = UserPosition::where('uid', '=', $uid)->get()->first();
-            var_dump($user_position->get(['uid', 'pid'])->toArray());
-            die;
+
             if ($user_position) {
                 $user_position->pid = $pid;
                 $user_position->save();
@@ -167,7 +166,12 @@ class PositionController extends BaseController {
                 $user_position->save();
             }
 
-            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => $user_position->get(['uid', 'pid'])->toArray()));
+            $data = [
+                'uid' => $user_position->uid,
+                'pid' => $user_position->pid
+            ];
+
+            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => $data));
         } else {
             return Response::json(array('c' => 403, 'm' => 'Forbidden'));
         }
