@@ -6,6 +6,7 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 /**
  * Class User
  *
+ * @property id       $id
  * @property email    $email
  * @property name     $name
  * @property avatar   $avatar

@@ -18,14 +18,15 @@ class PositionController extends BaseController {
     }
 
     public function postSearch() {
-        $keyword = Input::get('keyword', '');
-        $page    = intval(Input::get('page', 1));
-        $page    = $page > 1 ? $page : 1;
+        $keyword  = Input::get('keyword', '');
+        $page     = intval(Input::get('page', 1));
+        $page     = $page > 1 ? $page : 1;
+        $per_page = 20;
 
         if ($keyword) {
             $xs     = new XS('zhaopin');
             $search = $xs->search;
-            $search->setLimit(21, ($page - 1) * 20);
+            $search->setLimit($per_page + 1, ($page - 1) * $per_page);
             $docs   = $search->search('position:' . $keyword);
             $result = [];
             foreach ($docs as $doc) {
@@ -48,12 +49,12 @@ class PositionController extends BaseController {
 
             }
         } else {
-            $result = Position::take(11)->skip(($page - 1) * 10)->get(['id', 'position', 'position_desc', 'requirements', 'rank', 'hot'])->toArray();
+            $result = Position::take($per_page + 1)->skip(($page - 1) * $per_page)->get(['id', 'position', 'position_desc', 'requirements', 'rank', 'hot'])->toArray();
         }
 
         $count = count($result);
-        if ($count > 20) {
-            unset($result[20]);
+        if ($count > $per_page) {
+            unset($result[$per_page]);
             $next = true;
         } else {
             $next = false;
@@ -148,15 +149,16 @@ class PositionController extends BaseController {
         }
     }
 
-    public function anyTest() {
-        $xs     = new XS('zhaopin');
-        $search = $xs->search;
-        $docs   = $search->search('position:php');
-        $result = '';
-        foreach ($docs as $doc) {
-            $result .= $doc->requirements;
+    public function postSelect() {
+        if (Auth::check()) {
+            $user          = Auth::user();
+            $uid           = $user->id;
+            $user_position = UserPosition::where('uid', '=', $uid)->get();
+
+            return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $user_position->toArray())));
+        } else {
+            return Response::json(array('c' => 403, 'm' => 'Forbidden'));
         }
-        var_dump($result);
     }
 
 }
