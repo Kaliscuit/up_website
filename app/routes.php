@@ -47,8 +47,6 @@ Route::group(array('domain' => 'api.' . $host . 'v2up.me'), function () {
 
 
 
-
-
 Route::group(array('domain' => $host . 'v2up.me'), function () {
 
     Route::get('/', function () {
