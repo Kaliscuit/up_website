@@ -3,6 +3,7 @@
 exec("git pull", $str1, $str2);
 var_dump($str1);
 
+
 //while (True) {
 //    exec("git pull", $str1, $str2);
 //    try {
