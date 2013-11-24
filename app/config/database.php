@@ -47,7 +47,7 @@ return array(
 	'connections' => array(
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'dev.v2up.me',
+			'host'      => 'localhost',
 			'database'  => 'test',
 			'username'  => 'root',
 			'password'  => 'mijack',
