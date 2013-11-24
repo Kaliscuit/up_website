@@ -13,7 +13,6 @@ class PositionController extends BaseController {
             $search      = $xs->search;
             $suggestions = $search->getExpandedQuery($keyword, 5);
         }
-        Log::info('COOKIE---', $_COOKIE);
 
         return Response::json(array('c' => 200, 'm' => 'ok', 'd' => array('count' => count($suggestions), 'suggestions' => $suggestions)));
     }
@@ -46,8 +45,6 @@ class PositionController extends BaseController {
                     'rank'          => $doc->rank,
                     'hot'           => $doc->hot
                 ];
-
-
             }
         } else {
             $result = Position::take($per_page + 1)->skip(($page - 1) * $per_page)->get(['id', 'position', 'position_desc', 'requirements', 'rank', 'hot'])->toArray();
