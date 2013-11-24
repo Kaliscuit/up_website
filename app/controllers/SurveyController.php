@@ -10,7 +10,7 @@ class SurveyController extends BaseController {
 
             if ($user_position) {
                 $pid       = $user_position->pid;
-                $pid       = 2;
+                $pid       = 2;//TODO Debug off
                 $questions = Survey::where('pid', '=', $pid)->get()->first();
                 $survey    = [];
                 if ($questions) {
