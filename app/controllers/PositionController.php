@@ -78,7 +78,7 @@ class PositionController extends BaseController {
 
     public function postProfile() {
         $pid      = Input::get('pid', '');
-        $position = Position::find($pid, ['id', 'position', 'position_desc', 'requirements', 'rank', 'hot']);
+        $position = Position::find($pid);
         if ($position) {
             $position->click_times += 1;
             $position->save();

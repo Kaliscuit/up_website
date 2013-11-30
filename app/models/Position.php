@@ -26,4 +26,15 @@ class Position extends Eloquent {
         return $this->newQuery()->where('click_times', '>', $this->click_times)->count();
     }
 
+    public function toArray() {
+        return [
+            'id'            => $this->id,
+            'position'      => $this->position,
+            'position_desc' => $this->position_desc,
+            'requirements'  => $this->requirements,
+            'hot'           => $this->hot,
+            'rank'          => $this->rank
+        ];
+    }
+
 }
