@@ -13,6 +13,7 @@
  * @property company_address  $company_address
  * @property company_homepage $company_homepage
  * @property click_times      $click_times
+ * @property rank             $rank
  * @property hot              $hot
  * @property time             $time
  */
@@ -20,5 +21,9 @@ class Position extends Eloquent {
 
     protected $table = 'zhaopin';
     public $timestamps = false;
+
+    public function getRankAttribute() {
+        return $this->newQuery()->where('click_times', '>', $this->click_times)->count();
+    }
 
 }

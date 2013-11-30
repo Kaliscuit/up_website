@@ -80,7 +80,7 @@ class PositionController extends BaseController {
         $pid      = Input::get('pid', '');
         $position = Position::find($pid, ['id', 'position', 'position_desc', 'requirements', 'rank', 'hot']);
         if ($position) {
-            $position->rank += 1;
+            $position->click_times += 1;
             $position->save();
             return Response::json(array('c' => 200, 'm' => 'OK', 'd' => array('profile' => $position->toArray())));
         } else {
