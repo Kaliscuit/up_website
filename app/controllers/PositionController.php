@@ -71,7 +71,7 @@ class PositionController extends BaseController {
     }
 
     public function postHot() {
-        $positions = Position::all()->take(10);
+        $positions = Position::all()->take(10)->toArray();
 
         return Response::json(array('c' => 200, 'm' => 'ok', 'd' => array('count' => count($positions), 'positions' => $positions)));
     }
