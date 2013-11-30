@@ -23,7 +23,7 @@ class Position extends Eloquent {
     public $timestamps = false;
 
     public function getRankAttribute() {
-        return $this->newQuery()->where('click_times', '>', $this->click_times)->count();
+        return $this->newQuery()->where('click_times', '>', $this->click_times)->count() + 1;
     }
 
     public function toArray() {
