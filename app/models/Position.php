@@ -12,7 +12,7 @@
  * @property company_desc     $company_desc
  * @property company_address  $company_address
  * @property company_homepage $company_homepage
- * @property rank             $rank
+ * @property click_times      $click_times
  * @property hot              $hot
  * @property time             $time
  */
